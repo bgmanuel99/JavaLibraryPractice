@@ -10,6 +10,9 @@ This repository is the home of my Java library proyect, in which i make availabl
 
 - Interface: The interface class is the one where the menu is declared, it use control sentences to move between the different points of the menu and thus offer users the different services of the interface.
 
+# Tests
+For the libraries i used a source folder called src, so to avoid problems with the classes in that folder i created another source folder called test, in which i have the tests of the classes of the other folder.
+
 # Authors
 - Manuel Barrenechea Gonzalez - All the work.
 
