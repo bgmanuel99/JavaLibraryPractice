@@ -18,8 +18,8 @@ This repository is the home of my Java library proyect, in which i make availabl
 
 # Internationalisation
 The main language for the application is english from the United Kingdom(en,UK), but this are other languages that can be used in the aplication:
-     Spanish from Spain(es,ES)
-     Japanish(ja,JP)
+- Spanish from Spain(es,ES)
+- Japanish(ja,JP)
 
 # Files
 There are three files from which i get the books and videogames for the aplication. The data of the books and videogames are also interationalized so there one files for each language. All the data of the files is transformed into objects inside the library class with an algorithm.
