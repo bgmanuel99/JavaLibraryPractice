@@ -22,7 +22,7 @@ The main language for the application is english from the United Kingdom(en,UK),
 - Japanish(ja,JP)
 
 # Files
-There are three files from which i get the books and videogames for the aplication. The data of the books and videogames are also interationalized so there one files for each language. All the data of the files is transformed into objects inside the library class with an algorithm.
+There are three files from which i get the books and videogames for the aplication. The data of the books and videogames are also internationalized so there is one file for each language. All the data of the files is transformed into objects inside the library class with an algorithm.
 
 # Tests
 For the libraries i used a source folder called src, so to avoid problems with the classes in that folder i created another source folder called test, in which i have the tests of the classes of the other folder.
