@@ -16,7 +16,7 @@ public class Interface {
 		MyException exception = new MyException();
 
 		//===========================================================================
-		//                        INTERNATIONALISATION
+		//                        INTERNATIONALIZATION
 		//===========================================================================
 		System.out.println("These are the available languages and countries: ");
 		System.out.println("  Languages        Countries            Codes");
