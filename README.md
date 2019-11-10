@@ -1,5 +1,5 @@
 # JavaLibraryPractice
-This repository is the home of my Java library proyect, in which i make available a grafic interface for libraries where they can be borrow books.
+This repository is the home of my Java library proyect, in which i make available a grafic interface for libraries where they can be borrow books and videogames.
 
 # Classes of the proyect
 - Book: The Book class is a daughter class which contains all its attributes and also the attributes of the superclass from which it inherit, and the methods that will manage them. Their can be initialize book type objects that will be from which users would request a loan.
@@ -8,9 +8,19 @@ This repository is the home of my Java library proyect, in which i make availabl
 
 - LoanObjects: I created the class LoanObjects as an abstract superclass from which it is not possible to initialize objects. The book and videogame classes are the daughter classes of the superclass LoanObjects, which inherit all their attributes and methods. And the super class LoanObjects also houses an abstract method named printAllData, so that each daughter class can use it to show its own data.
 
+- BooksOnLoan: The BooksOnLoan class is a daughter class which contains all its attributes and also the attributes of the superclass from which it inherit, and the methods that will manage them. Their can be initialize BooksOnLoan type objects that will be created after the user makes any loan of a book. This objects will represent the borrowed books by the user, and they have unlike the books objects, attributes for the moment of the loan, which will be used to calculate the time of loan and the time until the delivery.
+
+- VideoGamesOnLoan: The VideoGamesOnLoan class is a daughter class which contains all its attributes and also the attributes of the superclass from which it inherit, and the methods that will manage them. Their can be initialize VideoGamesOnLoan type objects that will be created after the user makes any loan of a videogame. This objects will represent the borrowed videogames by the user, and they have as the BooksOnLoanObjects, attributes for the moment of the loan, which will be used to calculate the time of the loan and the time until the delivery.
+
+- ObjectsOnLoan: The class ObjectsOnLoan is an abstract superclass from which it is not possible to initialize objects, the BooksOnLoan and VideoGamesOnLoan classes are the daughter classes of this superclass which inherit all their attributes and methods. This superclass houses some methods which are used to calculate all the time a book or a videogame has been on loan, also if the time has overpassed the maximum time of loan, the sanctions for that overpassed time and also a method to calculate the time until the day od deliver.
+
+- Sanctions: This class is not a class with heritage, i used this class for a vector of sanctions inside the users class, so when any object have excided the time of loan an object of the type Sanctions is initialize and introduced insisde it. Inside the library the user can see which are his sanctions, the time until the sanctions is withdrawn and the total amount of sanctions in time.
+
 - User: As the Book class, the User class contains all the attributes of the user type objects, in which will be all the data of the new users of the library when registered.
 
 - Library: Library is a class in which i use encapsulation; i created two vectors, one of LoanObjects and another of users, as attributes of the class, then i used methods to manipulate the two of those, so that i can let users for example be able to unsubscribe or borrow books or videogames from the library.
+
+- ObjectsInterface: This is an interface which contains methods that will be used in the ObjectsOnLoan class to calculate times of the objects on loan.
 
 - MyException: MyException is a class which controls all the type of errors the users could give since the application is initialize. It contains a hashtable as an atributte with all the errors that could be given as keys, and their values are shown to the user so he can fix them. It also contains some vectors for the errors of the birth date data.
 
