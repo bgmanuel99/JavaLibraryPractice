@@ -30,9 +30,12 @@ This repository is the home of my Java library proyect, in which i make availabl
 I implemented a new interface for the ObjectsOnLoan class, this class will implement all the public methods that are in the interface. The methods of the interface will be used to calculate the loan time of an object and the time to deliver it among other things.
 
 I also implemented another two classes, daughters of the superclass ObjectsOnLoan, that will be used as the books and videogames borrowed by the user in the library.
+
 With all this i implemented lot more options in the user's menu, somo of them are watch the profile with all the data of the user, repay the loans or extend the time of the loan, also i give the option to repay all the loans at the same time.
 As i gived the user the option to make a loan, i had to enable the user to have penaltys for any delay in the return of the loan. For this penaltys i created the Sanctions class, so when a user repay a loan, the program looks if its being returned late, and in case it is true, then a sanction is added to the user.
+
 For the user's options in what the sanctions refered at, i give the user the option to see the sanctions he has and also the day it is withdrawn and the time it has to be passed until the withdrawn day. For this last option i give also the total amount of time for all the sanctions the user has.
+
 As i give the options to see the characteristics of the books and the videogames in the other menus, i gived the user the option to see all the loans he has and to see the characteristics of them.
 
 # Internationalization
