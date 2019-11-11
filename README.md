@@ -48,7 +48,9 @@ There are three files from which i get the books and videogames for the aplicati
 
 # Tests
 For the libraries i used a source folder called src, so to avoid problems with the classes in that folder i created another source folder called test, in which i have the tests of the classes of the other folder.
+
 I created tests for some classes as the LoanObjects, Library or user classes among others. For this test i created some examples to verify that all the methods worked correctly, in addition to creating for other methods several examples to verify that they could fail and that the exceptions were well collected.
+
 I also created tests for the interface of the objects on loan and for the internationalization.
 
 # Authors
