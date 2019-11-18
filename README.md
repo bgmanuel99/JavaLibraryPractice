@@ -16,6 +16,9 @@ This repository is the home of my Java library proyect, in which i make availabl
 
 - Sanctions: This class is not a class with heritage, i used this class for a vector of sanctions inside the users class, so when any object have excided the time of loan an object of the type Sanctions is initialize and introduced insisde it. Inside the library the user can see which are his sanctions, the time until the sanctions is withdrawn and the total amount of sanctions in time.
 
+- Rewards: Rewards is a generic class, i use it to give the users an oportunity of optaining a reward of the type integer or a reward of the type string. I withdraw as many sanctions as there are integer rewards. As far as string rewards are concerned, the name of a book or a videogame from the library comes out randomly and if the user wanted to use the reward 
+then a book or videogame is lent to the user depending on the random name that came out in the prize, but that object will have 14 days more of loan(28 in total) unlike a normal loan.
+
 - User: As the Book class, the User class contains all the attributes of the user type objects, in which will be all the data of the new users of the library when registered.
 
 - Library: Library is a class in which i use encapsulation; i created two vectors, one of LoanObjects and another of users, as attributes of the class, then i used methods to manipulate the two of those, so that i can let users for example be able to unsubscribe or borrow books or videogames from the library.
@@ -37,6 +40,12 @@ As i gived the user the option to make a loan, i had to enable the user to have 
 For the user's options in what the sanctions refered at, i give the user the option to see the sanctions he has and also the day it is withdrawn and the time it has to be passed until the withdrawn day. For this last option i give also the total amount of time for all the sanctions the user has.
 
 As i give the options to see the characteristics of the books and the videogames in the other menus, i gived the user the option to see all the loans he has and to see the characteristics of them.
+
+# Reward changes
+Now that i have implemented the option for the user to get a reward, i have to add some methods that randomly gived the chance for the user to obtain it. I also implemented another method that depending on the time the user has being registered on the library, the chances to obtain a reward increase.
+
+For this methods i used arrays and the method random of the class Math. For the method that depends on the time the user has being registered i only calculate the time with the date he was registered and the actual time on the calendar, for that i have to use the method abs, which give me the absolute number, from the Math class, and the library Calendar from java.util.
+Then for the other methods i first created an array in which i insert the random numbers, to get the random numbers i first call the method random from the class Math, then i multiplied it by 11 and then i added the result by 1 so the random numbers goes from 1 to 10, the method random gives double numbers so i have to user the method floor from the class Math to and then make a downcasting to int, then after inserting all the random numbers i sort the array of random numbers with the bubblesort algorithm, and if that array equals another array which is an attribute of the class user, then the user obtains the reward.
 
 # Internationalization
 The main language for the application is english from the United Kingdom(en,UK), but this are other languages that can be used in the aplication:
