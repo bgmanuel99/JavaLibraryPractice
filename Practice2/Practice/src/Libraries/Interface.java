@@ -1078,7 +1078,7 @@ public class Interface {
 														break;
 													}
 												}
-												stringRewards.removeElementAt(i);
+												user.removeRewards(stringRewards.elementAt(i));
 											}
 										}else if(answerInt == 2) {}
 									}else {
