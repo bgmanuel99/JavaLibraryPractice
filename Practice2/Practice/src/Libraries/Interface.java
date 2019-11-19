@@ -1038,7 +1038,7 @@ public class Interface {
 									System.out.println(prop.getProperty("User_stringPrizes"));
 									System.out.println(prop.getProperty("User_stringPrizes1"));
 									if(rewards.elementAt(1).size() > 0) {
-										if(rewards.elementAt(0).size() == 1) {
+										if(rewards.elementAt(1).size() == 1) {
 											System.out.println(prop.getProperty("User_havePrizes") + rewards.elementAt(1).size() + prop.getProperty("User_onePrize"));
 										}else {
 											System.out.println(prop.getProperty("User_havePrizes") + rewards.elementAt(1).size() + prop.getProperty("User_havePrizes1"));
