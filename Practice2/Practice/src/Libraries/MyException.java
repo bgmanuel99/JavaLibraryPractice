@@ -1,24 +1,29 @@
 package Libraries;
 
 import java.util.Hashtable;
-import java.util.Vector;
 import java.util.Calendar;
 
 public class MyException {
 	
 	private Hashtable<String,String> errors;
-	private Vector<String> days = new Vector<String>(), months = new Vector<String>(), years = new Vector<String>();
+	private String [][] multidimensionalDatesArray;
 	
 	public MyException() {
-		for(int i = 1; i <= 31; i++) {
-			this.days.add(String.valueOf(i));
+		String [] days = new String[31];
+		String [] months = new String[12];
+		String [] years = new String[70];
+		int j = 0;
+		for(int i = 0; i < 31; i++) {
+			days[i] = (String.valueOf(i+1));
 		}
-		for(int i = 1; i <= 12; i++) {
-			this.months.add(String.valueOf(i));
+		for(int i = 0; i < 12; i++) {
+			months[i] = (String.valueOf(i+1));
 		}
 		for(int i = (Calendar.getInstance().get(Calendar.YEAR) - 69); i <= Calendar.getInstance().get(Calendar.YEAR); i++) {
-			this.years.add(String.valueOf(i));
+			years[j] = (String.valueOf(i));
+			j++;
 		}
+		this.multidimensionalDatesArray = new String[][]{days, months, years};
 		this.errors = new Hashtable<String,String>();
 		this.errors.put("ErrorLanguageCountry", "There are no languages or countrys with the codes: ");
 		this.errors.put("ErrorIntegerOutOfBounds", "There are no options for your election.");
@@ -34,16 +39,20 @@ public class MyException {
 	public String getException(String error) {
 		return this.errors.get(error);
 	}
-	
-	public Vector<String> getDays(){
-		return this.days;
+
+	public Hashtable<String, String> getErrors() {
+		return errors;
 	}
-	
-	public Vector<String> getMonths(){
-		return this.months;
+
+	public void setErrors(Hashtable<String, String> errors) {
+		this.errors = errors;
 	}
-	
-	public Vector<String> getYears(){
-		return this.years;
+
+	public String[][] getMultidimensionalDatesArray() {
+		return multidimensionalDatesArray;
+	}
+
+	public void setMultidimensionalDatesArray(String[][] multidimensionalDatesArray) {
+		this.multidimensionalDatesArray = multidimensionalDatesArray;
 	}
 }

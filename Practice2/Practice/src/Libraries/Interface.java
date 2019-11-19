@@ -85,7 +85,6 @@ public class Interface {
 		//===========================================================================
 
 		boolean loggedIn = false, logOut = false;
-		Vector<User> users = library.getUsers();
 		String actualUserEmail = "", actualUserPassword = "";
 
 		while(logOut != true) {
@@ -113,11 +112,6 @@ public class Interface {
 					actualUserPassword = consoleEntrance.nextLine();
 
 					if(library.correctLogIn(actualUserEmail, actualUserPassword)) {
-						for(User elem : users) {
-							if(elem.getEmail().equalsIgnoreCase(actualUserEmail)) {
-								elem.setLoggedIn(true);
-							}
-						}
 						System.out.println(prop.getProperty("Sucessfully_logged_in"));
 						loggedIn = true;
 					}else {
@@ -145,7 +139,7 @@ public class Interface {
 						System.out.print(prop.getProperty("Introduce_birthday"));
 						birthDay = consoleEntrance.nextLine();
 
-						for(String elem : exception.getDays()) {
+						for(String elem : exception.getMultidimensionalDatesArray()[0]) {
 							if(elem.equals(birthDay)) {
 								error = false;
 								break;
@@ -163,7 +157,7 @@ public class Interface {
 						System.out.print(prop.getProperty("Introduce_birthmonth"));
 						birthMonth = consoleEntrance.nextLine();
 
-						for(String elem : exception.getMonths()) {
+						for(String elem : exception.getMultidimensionalDatesArray()[1]) {
 							if(elem.equals(birthMonth)) {
 								error = false;
 								break;
@@ -182,7 +176,7 @@ public class Interface {
 						System.out.print(prop.getProperty("Introduce_birthyear"));
 						birthYear = consoleEntrance.nextLine();
 
-						for(String elem : exception.getYears()) {
+						for(String elem : exception.getMultidimensionalDatesArray()[2]) {
 							if(elem.equals(birthYear)) {
 								error = false;
 								break;
@@ -234,6 +228,55 @@ public class Interface {
 
 			if(logOut != true) {
 				User user = library.searchUser(actualUserEmail, actualUserPassword);
+
+				String attemp = "";
+				while(error != false) {
+					consoleEntrance = new Scanner(System.in);
+					System.out.print(prop.getProperty("User_ask_tryPrize"));
+					attemp = consoleEntrance.nextLine();
+
+					if((!attemp.equals("1")) && (!attemp.equals("2"))) {
+						System.out.println(exception.getException("ErrorIntegerOutOfBouds"));
+					}else {
+						error = false;
+					}
+				}
+				int attempInt = Integer.parseInt(attemp);
+				error = true;
+
+				if(attempInt == 1) {
+					if(user.haveReward(user.timeToDays(user.totalDaysRegistered()))) {
+						if(user.wonAPrize()) {
+							System.out.print(prop.getProperty("User_wonPrize"));
+							int numRandom = (int) Math.floor(Math.random()*2);
+
+							if(numRandom == 0) {
+								Rewards<Integer> reward = new Rewards<Integer>(1);
+								user.addReward(reward);
+							}else if(numRandom == 1) {
+								Vector<LoanObjects> loanObjects = library.getLoanObjects();
+								Vector<String> randomObjects = new Vector<String>();
+								for(LoanObjects elem : loanObjects) {
+									randomObjects.add(elem.getName());
+								}
+
+								int numRandom1 = (int) Math.floor(Math.random()*(randomObjects.size()));
+								String randomString = randomObjects.elementAt(numRandom1);
+
+								Rewards<String> reward = new Rewards<String>(randomString);
+								user.addReward(reward);
+							}
+						}else {
+							System.out.println(prop.getProperty("User_not_wonPrize"));
+						}
+					}else {
+						System.out.println(prop.getProperty("User_not_wonPrize"));
+					}
+				}else if(attempInt == 2){
+					System.out.println(prop.getProperty("User_enterLibrary"));
+				}
+				System.out.println("");
+
 				String option = "";
 				while(!option.equals("4")) {
 					consoleEntrance = new Scanner(System.in);
@@ -251,12 +294,12 @@ public class Interface {
 
 					if(option.equals("1")) {
 						String option2 = "";
-						while(!option2.equals("10")) {
+						while(!option2.equals("11")) {
 							while(error != false) {
 								System.out.print(prop.getProperty("User's_menu"));
 								option2 = consoleEntrance.nextLine();
 
-								if((!option2.equals("1")) && (!option2.equals("2")) && (!option2.equals("3")) && (!option2.equals("4")) && (!option2.equals("5")) && (!option2.equals("6")) && (!option2.equals("7")) && (!option2.equals("8")) && (!option2.equals("9")) && (!option2.equals("10"))) {
+								if((!option2.equals("1")) && (!option2.equals("2")) && (!option2.equals("3")) && (!option2.equals("4")) && (!option2.equals("5")) && (!option2.equals("6")) && (!option2.equals("7")) && (!option2.equals("8")) && (!option2.equals("9")) && (!option2.equals("10")) && (!option2.equals("11"))) {
 									System.out.println(exception.getException("ErrorIntegerOutOfBounds"));
 								}else {
 									error = false;
@@ -295,7 +338,7 @@ public class Interface {
 										}
 									}
 									System.out.println(prop.getProperty("Drop_out_user"));
-									option2 = "10";
+									option2 = "11";
 									option = "4";
 								}else if(yesNoInt == 2) {}
 								break;
@@ -454,25 +497,25 @@ public class Interface {
 										while(error != false) {
 											System.out.print(prop.getProperty("Introduce_new_birthDay"));
 											newBirthDay = consoleEntrance1.nextLine();
-											
-											for(String elem : exception.getDays()) {
+
+											for(String elem : exception.getMultidimensionalDatesArray()[0]) {
 												if(elem.equals(newBirthDay)) {
 													error = false;
 													break;
 												}
 											}
-											
+
 											if(error == true) {
 												System.out.println(exception.getException("ErrorBirthDates"));
 											}
 										}
 										newBirthDayInt = Integer.parseInt(newBirthDay);
 										error = true;
-										
+
 										while(error != false) {
 											System.out.print(prop.getProperty("Confirm_change_birthDay"));
 											response2 = consoleEntrance1.nextLine();
-											
+
 											if((!response2.equals("1")) && (!response2.equals("2"))) {
 												System.out.println(exception.getException("ErrorIntegerOutOfBounds"));
 											}else {
@@ -481,7 +524,7 @@ public class Interface {
 										}
 										int response2Int = Integer.parseInt(response2);
 										error = true;
-										
+
 										if(response2Int == 1) {
 											changeBirthDay = true;
 										}else if(response2Int == 2) {}
@@ -490,25 +533,25 @@ public class Interface {
 										while(error != false) {
 											System.out.print(prop.getProperty("Introduce_new_birthMonth"));
 											newBirthMonth = consoleEntrance1.nextLine();
-											
-											for(String elem : exception.getMonths()) {
+
+											for(String elem : exception.getMultidimensionalDatesArray()[1]) {
 												if(elem.equals(newBirthMonth)) {
 													error = false;
 													break;
 												}
 											}
-											
+
 											if(error == true) {
 												System.out.println(exception.getException("ErrorBirthDates"));
 											}
 										}
 										newBirthMonthInt = Integer.parseInt(newBirthMonth);
 										error = true;
-										
+
 										while(error != false) {
 											System.out.print(prop.getProperty("Confirm_change_birthMonth"));
 											response2 = consoleEntrance1.nextLine();
-											
+
 											if((!response2.equals("1")) && (!response2.equals("2"))) {
 												System.out.println(exception.getException("ErrorIntegerOutOfBounds"));
 											}else {
@@ -517,7 +560,7 @@ public class Interface {
 										}
 										int response2Int = Integer.parseInt(response2);
 										error = true;
-										
+
 										if(response2Int == 1) {
 											changeBirthMonth = true;
 										}else if(response2Int == 2) {}
@@ -526,25 +569,25 @@ public class Interface {
 										while(error != false) {
 											System.out.print(prop.getProperty("Introduce_new_birthYear"));
 											newBirthYear = consoleEntrance1.nextLine();
-											
-											for(String elem : exception.getYears()) {
+
+											for(String elem : exception.getMultidimensionalDatesArray()[2]) {
 												if(elem.equals(newBirthYear)) {
 													error = false;
 													break;
 												}
 											}
-											
+
 											if(error == true) {
 												System.out.println(exception.getException("ErrorBirthDates"));
 											}
 										}
 										newBirthYearInt = Integer.parseInt(newBirthYear);
 										error = true;
-										
+
 										while(error != false) {
 											System.out.print(prop.getProperty("Confirm_change_birthYear"));
 											response2 = consoleEntrance1.nextLine();
-											
+
 											if((!response2.equals("1")) && (!response2.equals("2"))) {
 												System.out.println(exception.getException("ErrorIntegerOutOfBounds"));
 											}else {
@@ -553,7 +596,7 @@ public class Interface {
 										}
 										int response2Int = Integer.parseInt(response2);
 										error = true;
-										
+
 										if(response2Int == 1) {
 											changeBirthYear = true;
 										}else if(response2Int == 2) {}
@@ -622,7 +665,7 @@ public class Interface {
 												if(sanction == 0) {
 													System.out.print(exception.getException("ErrorToMuchTime"));
 													toMuchTime = true;
-													option2 = "10";
+													option2 = "11";
 													option = "4";
 												}else if(sanction == 14) {
 													user.removeObjectOnLoan(object);
@@ -707,7 +750,7 @@ public class Interface {
 													if(sanction == 0) {
 														System.out.print(exception.getException("ErrorToMuchTime"));
 														toMuchTime = true;
-														option2 = "10";
+														option2 = "11";
 														option = "4";
 													}else if(sanction == 14) {
 														user.removeObjectOnLoan(object);
@@ -860,7 +903,7 @@ public class Interface {
 											}
 											System.out.println(prop.getProperty("User_dropOut"));
 											library.dropOutUser(user);
-											option2 = "10";
+											option2 = "11";
 											option = "4";
 										}
 
@@ -953,11 +996,104 @@ public class Interface {
 								}
 								break;
 							case 9:
-								option2 = "10";
-								option = "";
+								consoleEntrance = new Scanner(System.in);
+								if(user.getRewards().size() > 0) {
+									Vector<Vector<Rewards>> rewards = user.separateRewards();
+
+									System.out.println(prop.getProperty("User_integerPrizes"));
+									System.out.println(prop.getProperty("User_integerPrizes1"));
+									if(rewards.elementAt(0).size() > 0) {
+										if(rewards.elementAt(0).size() == 1) {
+											System.out.println(prop.getProperty("User_havePrizes") + rewards.elementAt(0).size() + prop.getProperty("User_onePrize"));
+										}else {
+											System.out.println(prop.getProperty("User_havePrizes") + rewards.elementAt(0).size() + prop.getProperty("User_havePrizes1"));
+										}
+										System.out.println("");
+
+										String answer = "";
+										while(error != false) {
+											System.out.print(prop.getProperty("User_ask_usePrizes"));
+											answer = consoleEntrance.nextLine();
+
+											if((!answer.equals("1")) && (!answer.equals("2"))) {
+												System.out.println(exception.getException("ErrorIntegerOutOfBounds"));
+											}else {
+												error = false;
+											}
+										}
+										int answerInt = Integer.parseInt(answer);
+										error = true;
+
+										if(answerInt == 1) {
+											if(user.getSanctions().size() > 0) {
+												user.useIntegerRewards(rewards.elementAt(0));
+											}else {
+												System.out.println(prop.getProperty("User_noSanctions"));
+											}
+										}else if(answerInt == 2) {}
+									}else {
+										System.out.println(prop.getProperty("User_noIntegerPrizes"));
+									}
+
+									System.out.println(prop.getProperty("User_stringPrizes"));
+									System.out.println(prop.getProperty("User_stringPrizes1"));
+									if(rewards.elementAt(1).size() > 0) {
+										if(rewards.elementAt(0).size() == 1) {
+											System.out.println(prop.getProperty("User_havePrizes") + rewards.elementAt(1).size() + prop.getProperty("User_onePrize"));
+										}else {
+											System.out.println(prop.getProperty("User_havePrizes") + rewards.elementAt(1).size() + prop.getProperty("User_havePrizes1"));
+										}
+										System.out.println("");
+
+										String answer = "";
+										while(error != false) {
+											System.out.print(prop.getProperty("User_ask_usePrizes"));
+											answer = consoleEntrance.nextLine();
+
+											if((!answer.equals("1")) && (!answer.equals("2"))) {
+												System.out.println(exception.getException("ErrorIntegerOutOfBouns"));
+											}else {
+												error = false;
+											}
+										}
+										int answerInt = Integer.parseInt(answer);
+										error = true;
+
+										if(answerInt == 1) {
+											Vector<LoanObjects> loanObjects= library.getLoanObjects();
+											Vector<Rewards> stringRewards = rewards.elementAt(1);
+
+											for(int i = 0; i < stringRewards.size(); i++) {
+												for(LoanObjects elem : loanObjects) {
+													if(elem.getName().equals(stringRewards.elementAt(i).getValue())) {
+														if(elem.getClass().getSimpleName().equals("Book")) {
+															Book bookElem = (Book) elem;
+															user.addObjectOnLoan(new BooksOnLoan(bookElem.getName(), bookElem.getAuthor(), bookElem.getPublicationDay(), bookElem.getPublicationMonth(), bookElem.getPublicationYear(), bookElem.getGenre(), bookElem.getNumberOfPages(), bookElem.getISBN()));
+															user.extendRewardObjectsTime(bookElem.getName());
+														}else if(elem.getClass().getSimpleName().equals("VideoGames")) {
+															VideoGames videogame = (VideoGames) elem;
+															user.addObjectOnLoan(new VideoGamesOnLoan(videogame.getName(), videogame.getPublicationDay(), videogame.getPublicationMonth(), videogame.getPublicationYear(), videogame.getGenre(), videogame.getGameModes(), videogame.getLastVersion(), videogame.getComposers(), videogame.getDevelopers(), videogame.getPlatforms()));
+															user.extendRewardObjectsTime(videogame.getName());
+														}
+														break;
+													}
+												}
+												stringRewards.removeElementAt(i);
+											}
+										}else if(answerInt == 2) {}
+									}else {
+										System.out.println(prop.getProperty("User_noStringPrizes"));
+									}
+								}else {
+									System.out.println(prop.getProperty("User_notPrizes"));
+								}
 								break;
 							case 10:
-								option2 = "10";
+								option2 = "11";
+								option = "";
+								break;
+							case 11:
+								option2 = "11";
 								option = "4";
 								break;
 							}

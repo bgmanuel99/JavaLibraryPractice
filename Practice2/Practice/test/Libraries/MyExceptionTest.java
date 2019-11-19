@@ -11,7 +11,7 @@ class MyExceptionTest {
 		MyException exception = new MyException();
 		
 		int expectedResult = 31;
-		int realResult = exception.getDays().size();
+		int realResult = exception.getMultidimensionalDatesArray()[0].length;
 		
 		assertEquals(expectedResult, realResult);
 	}
@@ -21,7 +21,7 @@ class MyExceptionTest {
 		MyException exception = new MyException();
 		
 		int expectedResult = 12;
-		int realResult = exception.getMonths().size();
+		int realResult = exception.getMultidimensionalDatesArray()[1].length;
 		
 		assertEquals(expectedResult, realResult);
 	}
@@ -31,7 +31,7 @@ class MyExceptionTest {
 		MyException exception = new MyException();
 		
 		int expectedResult = 70;
-		int realResult = exception.getYears().size();
+		int realResult = exception.getMultidimensionalDatesArray()[2].length;
 		
 		assertEquals(expectedResult, realResult);
 	}

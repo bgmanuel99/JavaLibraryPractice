@@ -41,7 +41,7 @@ class LibraryTest {
 		Library test = new Library();
 		test.addBook(new Book("El Silmarillion", 15, "Septiembre", 1977, "Novel", 2, 3, "J.R.R. Tolkien", 365, "9788475968513"));
 		
-		Vector<LoanObjects> books = test.getBooks();
+		Vector<LoanObjects> books = test.getLoanObjects();
 		String book = "El Silmarillion";
 		int realResult = 0;
 		
@@ -235,7 +235,7 @@ class LibraryTest {
 		test.addBook(new Book("The Silmarillion", 15, "September", 1997, "novel", 14, 5, "J.R.R. Tolkien", 365, "9788475968513"));
 		
 		int expectedResult = 1;
-		int realResult = test.getBooks().size();
+		int realResult = test.getLoanObjects().size();
 		
 		assertEquals(expectedResult, realResult);
 	}
@@ -263,7 +263,7 @@ class LibraryTest {
 		test.addVideoGame(new VideoGames("World of Warcraft", 23, "November", 2004, "Rol", 14, 5, "Massively multiplayer online", composers, developers, "8.2.4", platforms));
 		
 		int expectedResult = 1;
-		int realResult = test.getBooks().size();
+		int realResult = test.getLoanObjects().size();
 		
 		assertEquals(expectedResult, realResult);
 	}

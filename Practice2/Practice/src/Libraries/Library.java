@@ -318,10 +318,10 @@ public class Library {
 		return false;
 	}
 
-	public Vector<LoanObjects> getBooks() {
+	public Vector<LoanObjects> getLoanObjects() {
 		return loanObjects;
 	}
-	public void setBooks(Vector<LoanObjects> books) {
+	public void setLoanOBjects(Vector<LoanObjects> books) {
 		this.loanObjects = books;
 	}
 	public Vector<User> getUsers() {
