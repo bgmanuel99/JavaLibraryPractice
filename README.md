@@ -51,6 +51,7 @@ Then for the other methods i first created an array in which i insert the random
 The main language for the application is english from the United Kingdom(en,UK), but this are other languages that can be used in the aplication:
 - Spanish from Spain(es,ES)
 - Japanish(ja,JP)
+- German(de,DE)
 
 # Files
 There are three files from which i get the books and videogames for the aplication. The data of the books and videogames are also internationalized so there is one file for each language. All the data of the files is transformed into objects inside the library class with an algorithm.
@@ -61,6 +62,17 @@ For the libraries i used a source folder called src, so to avoid problems with t
 I created tests for some classes as the LoanObjects, Library or user classes among others. For this test i created some examples to verify that all the methods worked correctly, in addition to creating for other methods several examples to verify that they could fail and that the exceptions were well collected.
 
 I also created tests for the interface of the objects on loan and for the internationalization.
+
+# Codewars
+The kata i've completed is a 5 Kyu kata, the problem to resolve was that given to integers m,n (1 <= m <= n) we wanted to find all integers between m and n whose sum of squared divisors is itself a square.
+
+The result must be an array of arrays or a string, each subarray having two elements, first the number whose squared divisors is a square and then the sum of the squared divisors.
+
+Examples:
+list_squared(1,250) --> [[1, 1], [42, 2500], [246, 84100]]
+list_squared(42,250) --> [[42, 2500], [246, 84100]]
+
+https://www.codewars.com/users/Manuelbg/completed_solutions
 
 # Authors
 - Manuel Barrenechea Gonzalez - All the work.
