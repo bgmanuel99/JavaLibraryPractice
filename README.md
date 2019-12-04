@@ -69,10 +69,12 @@ The kata i've completed is a 5 Kyu kata, the problem to resolve was that given t
 The result must be an array of arrays or a string, each subarray having two elements, first the number whose squared divisors is a square and then the sum of the squared divisors.
 
 Examples:
+
 list_squared(1,250) --> [[1, 1], [42, 2500], [246, 84100]]
+
 list_squared(42,250) --> [[42, 2500], [246, 84100]]
 
-https://www.codewars.com/users/Manuelbg/completed_solutions
+https://github.com/bgmanuel99/JavaLibraryPractice/blob/master/IntegersRecreationOne.java
 
 # Authors
 - Manuel Barrenechea Gonzalez - All the work.
