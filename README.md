@@ -14,6 +14,15 @@ This repository is the home of my Java library proyect, in which i make availabl
 
 - ObjectsOnLoan: The class ObjectsOnLoan is an abstract superclass from which it is not possible to initialize objects, the BooksOnLoan and VideoGamesOnLoan classes are the daughter classes of this superclass which inherit all their attributes and methods. This superclass houses some methods which are used to calculate all the time a book or a videogame has been on loan, also if the time has overpassed the maximum time of loan, the sanctions for that overpassed time and also a method to calculate the time until the day od deliver.
 
+- LoanObjectsPattern: This class is an abstract superclass that is also an inherit class of the superclass LoanObjects.
+The PC, Xbox, SoftBookCover and HardBookCover classes are the daughter classes of this superclass which inherit all their attributes and methods. This superclass is used for the pattern decorator.
+When a user wants to buy a book or a videogame i give them the opportunity to give an extra to that objects, with the superclass LoanObjectsPattern the objects book or videogame can be reinstantiate in the daughter classes of this superclass.
+This superclass also have an abstract method which is characteristics, with this abstract method i can get a new characteristic of each daughter class.
+
+- PC, Xbox, SoftBookCover, HardBookCover: this are the daughter classes of the superclass LoanObjectsPattern which inherit all its attributes and methods. This are the four options a user can choose to reinstantiate the book or videogame object choosed with anteriority, so it gives to the new object new characteristics.
+
+- ShoppingBascket: I use this class for patterns and also for concurrence. 
+
 - Sanctions: This class is not a class with heritage, i used this class for a vector of sanctions inside the users class, so when any object have excided the time of loan an object of the type Sanctions is initialize and introduced insisde it. Inside the library the user can see which are his sanctions, the time until the sanctions is withdrawn and the total amount of sanctions in time.
 
 - Rewards: Rewards is a generic class, i use it to give the users an oportunity of optaining a reward of the type integer or a reward of the type string. I withdraw as many sanctions as there are integer rewards. As far as string rewards are concerned, the name of a book or a videogame from the library comes out randomly and if the user wanted to use the reward 
