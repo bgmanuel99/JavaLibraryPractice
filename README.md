@@ -81,6 +81,8 @@ I created tests for some classes as the LoanObjects, Library or user classes amo
 
 I also created tests for the interface of the objects on loan and for the internationalization.
 
+I use concurrence to give some time between two iterations of the vector of items. To test this time, i use the method sleep of the Thread class in a test method in which i give 500 milliseconds to wait for each iteration, as the iterations goes from 0 to 4 the method should get a wait time of 2500 milliseconds.
+
 # Codewars
 The kata i've completed is a 5 Kyu kata, the problem to resolve was that given to integers m,n (1 <= m <= n) we wanted to find all integers between m and n whose sum of squared divisors is itself a square.
 
