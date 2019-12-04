@@ -123,23 +123,28 @@ public abstract class ObjectsOnLoan implements ObjectsInterface{
 
 		int years = this.yearOfLoan;
 		int month = this.monthOfLoan;
-		int day = this.dayOfLoan;
-
-		for(int i = 0; i < maxTime; i++) {
-			day++;
-			if(day == 31) {
-				month++;
-				day = 1;
-			}
+		int day = this.dayOfLoan + maxTime;
+		
+		int totalDays = 0, totalMonths = 0, totalYears = 0;
+		
+		if(day > 31) {
+			totalDays = day - 31;
+			totalMonths += 1;
+		}else {
+			totalDays = day;
 		}
-
-		if(month >= 12) {
-			years++;
-			month = 1;
+		
+		if((month + totalMonths) > 12) {
+			totalYears += 1;
+			totalMonths = 1;
+		}else {
+			totalMonths += month;
 		}
+		
+		years = years + totalYears;
 
-		time[0] = day;
-		time[1] = month;
+		time[0] = totalDays;
+		time[1] = totalMonths;
 		time[2] = years;
 
 		return time;
@@ -169,7 +174,7 @@ public abstract class ObjectsOnLoan implements ObjectsInterface{
 					days = 31 - totalDays;
 				}
 			}else if(thisMonth > monthOfWithdrawn) {
-				totalMonths = Math.abs(monthOfWithdrawn - thisYear);
+				totalMonths = Math.abs(monthOfWithdrawn - thisMonth);
 				months = 12 - totalMonths;
 				if(thisDay <= dayOfWithdrawn) {
 					days = dayOfWithdrawn - thisDay;
@@ -180,7 +185,7 @@ public abstract class ObjectsOnLoan implements ObjectsInterface{
 			}
 
 			timeToWithdrawn[0] = days;
-			timeToWithdrawn[1] = months;
+			timeToWithdrawn[1] = months - 1;
 			timeToWithdrawn[2] = totalYear;
 		}
 

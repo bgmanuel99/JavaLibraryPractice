@@ -34,6 +34,7 @@ public class MyException {
 		this.errors.put("ErrorTwoTimesLoan","You already extend the loan time of the item two times, you cant extend it more.");
 		this.errors.put("ErrorWrongYearData","The years data are wrong, the operation can not be resolved.");
 		this.errors.put("ErrorHaveSanctions","You cant borrow any object while having sanctions.");
+		this.errors.put("ErrorHaveNoProducts","You dont have products on your shopping basket.");
 	}
 	
 	public String getException(String error) {

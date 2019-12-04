@@ -54,7 +54,7 @@ public class Sanctions {
 		int yearOfWithdrawn = time[2];
 		int monthOfWithdrawn = time[1];
 		int dayOfWithdrawn = time[0];
-		
+
 		int thisYear = Calendar.getInstance().get(Calendar.YEAR);
 		int thisMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
 		int thisDay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
@@ -74,7 +74,7 @@ public class Sanctions {
 					days = 31 - totalDays;
 				}
 			}else if(thisMonth > monthOfWithdrawn) {
-				totalMonths = Math.abs(monthOfWithdrawn - thisYear);
+				totalMonths = Math.abs(monthOfWithdrawn - thisMonth);
 				months = 12 - totalMonths;
 				if(thisDay <= dayOfWithdrawn) {
 					days = dayOfWithdrawn - thisDay;
@@ -83,9 +83,9 @@ public class Sanctions {
 					days = 31 - totalDays;
 				}
 			}
-			
+
 			timeToWithdrawn[0] = days;
-			timeToWithdrawn[1] = months;
+			timeToWithdrawn[1] = months - 1;
 			timeToWithdrawn[2] = totalYear;
 		}
 

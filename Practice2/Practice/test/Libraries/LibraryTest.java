@@ -3,6 +3,7 @@ package Libraries;
 import static org.junit.jupiter.api.Assertions.*;
 import java.util.Vector;
 import org.junit.jupiter.api.Test;
+
 import Libraries.Book;
 import Libraries.Library;
 import Libraries.User;
@@ -217,16 +218,21 @@ class LibraryTest {
 	}
 	
 	@Test
-	public void testAddBookAndVideogames() {
+	public void testAddBookAndVideogames1() {
 		Library test = new Library();
 		String object = "Book,The|Silmarillion,15,September,1977,novel,14,5,J.R.R.|Tolkien,365,9788475968513";
 		test.addBookAndVideogames(object);
-		Book book = test.getBook("The Silmarillion");
 		
-		Book realResult = test.getBook("The Silmarillion");
-		Book expectedResult = book;
+		assertTrue(test.searchLoanObjectsByName("The Silmarillion"));
+	}
+	
+	@Test
+	public void testAddBookAndVideogames2() {
+		Library test = new Library();
+		String object = "Videogame,World|of|Warcraft,23,November,2004,Rol,14,5,Massively|multiplayer|online,8.2.4,Tracy|W.|Bush;,Blizzard|Entertainment;,Windows;Mac|OS|X;";
+		test.addBookAndVideogames(object);
 		
-		assertEquals(expectedResult, realResult);
+		assertTrue(test.searchLoanObjectsByName("World of Warcraft"));
 	}
 	
 	@Test
@@ -307,5 +313,130 @@ class LibraryTest {
 		int realResult = test.getUsers().size();
 		
 		assertEquals(expectedResult, realResult);
+	}
+	
+	@Test
+	public void testGetLoanObjects() {
+		Library test = new Library();
+		Book book = new Book("The Silmarillion", 15, "September", 1997, "novel", 14, 5, "J.R.R. Tolkien", 365, "9788475968513");
+		
+		Vector<LoanObjects> loanObjects = new Vector<LoanObjects>();
+		
+		loanObjects.add(book);
+		
+		test.addBook(book);
+		
+		assertEquals(loanObjects, test.getLoanObjects());
+	}
+	
+	@Test
+	public void testSetLoanOBjects() {
+		Library test = new Library();
+		Vector<String> composers = new Vector<String>(), developers = new Vector<String>(), platforms = new Vector<String>();
+		composers.add("Tracy W. Bush");
+		developers.add("Blizzard Entertainment");
+		platforms.add("Windows");
+		platforms.add("Mac OS X");
+		Book book = new Book("The Silmarillion", 15, "September", 1997, "novel", 14, 5, "J.R.R. Tolkien", 365, "9788475968513");
+		VideoGames videogame = new VideoGames("World of Warcraft", 23, "November", 2004, "Rol", 14, 5, "Massively multiplayer online", composers, developers, "8.2.4", platforms);
+		
+		Vector<LoanObjects> loanObjects = new Vector<LoanObjects>();
+		Vector<LoanObjects> loanObjects1 = new Vector<LoanObjects>();
+		
+		loanObjects.add(book);
+		loanObjects1.add(videogame);
+		loanObjects1.add(book);
+		
+		test.addBook(book);
+		
+		assertEquals(loanObjects, test.getLoanObjects());
+		
+		test.setLoanOBjects(loanObjects1);
+		
+		assertEquals(loanObjects1, test.getLoanObjects());
+	}
+	
+	@Test
+	public void testGetUsers() {
+		Library test = new Library();
+		User user = new User("Manuel", "Barrenechea", "02755013G", 17, 11, 1999, "Male", "bgmanuel1999@gmail.com", "gameOfThrones");
+		
+		Vector<User> users = new Vector<User>();
+		users.add(user);
+		
+		test.addUser(user);
+		
+		assertEquals(users, test.getUsers());
+	}
+	
+	@Test
+	public void testSetUsers() {
+		Library test = new Library();
+		User user = new User("Manuel", "Barrenechea", "02755013G", 17, 11, 1999, "Male", "bgmanuel1999@gmail.com", "gameOfThrones");
+		User user1 = new User("Manuel", "Barrenechea", "02755013G", 17, 11, 1999, "Male", "bgmanuel1999@gmail.com", "gameOfThrones");
+		
+		Vector<User> users = new Vector<User>();
+		Vector<User> users1 = new Vector<User>();
+		
+		users.add(user);
+		test.addUser(user);
+		
+		users1.add(user);
+		users1.add(user1);
+		
+		assertEquals(users, test.getUsers());
+		
+		test.setUsers(users1);
+		
+		assertEquals(users1, test.getUsers());
+	}
+	
+	@Test
+	public void testReturnLoanObject1() {
+		Library test = new Library();
+		Book book = new Book("The Silmarillion", 15, "September", 1997, "novel", 14, 5, "J.R.R. Tolkien", 365, "9788475968513");
+
+		test.addBook(book);
+		test.returnLoanObject(book);
+		
+		assertEquals(6, test.getLoanObjects().get(0).getStock());
+	}
+	
+	@Test
+	public void testReturnLoanObjects2() {
+		Library test = new Library();
+		Vector<String> composers = new Vector<String>(), developers = new Vector<String>(), platforms = new Vector<String>();
+		composers.add("Tracy W. Bush");
+		developers.add("Blizzard Entertainment");
+		platforms.add("Windows");
+		platforms.add("Mac OS X");
+		VideoGames videogame = new VideoGames("World of Warcraft", 23, "November", 2004, "Rol", 14, 5, "Massively multiplayer online", composers, developers, "8.2.4", platforms);
+
+		test.addVideoGame(videogame);
+		test.returnLoanObject(videogame);
+		
+		assertEquals(6, test.getLoanObjects().get(0).getStock());
+	}
+	
+	@Test
+	public void testReturnLoanObjects3() {
+		Library test = new Library();
+		Book book = new Book("The Silmarillion", 15, "September", 1997, "novel", 14, 5, "J.R.R. Tolkien", 365, "9788475968513");
+		LoanObjects book1 = book;
+
+		test.addBook(book);
+		test.returnLoanObject(book1);
+		
+		assertEquals(6, test.getLoanObjects().get(0).getStock());
+	}
+	
+	@Test
+	public void testGetLoanObject() {
+		Library test = new Library();
+		Book book = new Book("The Silmarillion", 15, "September", 1997, "novel", 14, 5, "J.R.R. Tolkien", 365, "9788475968513");
+		
+		test.addBook(book);
+		
+		assertEquals(book, test.getLoanObject("The Silmarillion"));
 	}
 }

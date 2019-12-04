@@ -34,7 +34,30 @@ public abstract class ObjectsInterfaceTest {
 	@Test
 	public final void testDateOfDeliver1() {
 		ObjectsInterface instance = createInstance();
-		int [] expectedResult = {Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + 14,11,2019};
+		
+		int day = Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + 14;
+		int month = Calendar.getInstance().get(Calendar.MONTH) + 1;
+		int year = Calendar.getInstance().get(Calendar.YEAR);
+		int totalDays = 0, totalMonths = 0, totalYears = 0;
+		
+		if(day > 31) {
+			totalDays = day - 31;
+			totalMonths += 1;
+		}else {
+			totalDays = day;
+		}
+		
+		if((month + totalMonths) > 12) {
+			totalYears += 1;
+			totalMonths = 1;
+		}else {
+			totalMonths += month;
+		}
+		
+		year += totalYears;
+		
+		int [] expectedResult = {totalDays,totalMonths,year};
+		
 		assertArrayEquals(expectedResult, instance.dateOfDeliver());
 	}
 	
@@ -42,6 +65,10 @@ public abstract class ObjectsInterfaceTest {
 	public final void testTimeToDeliver1() {
 		ObjectsInterface instance = createInstance();
 		int [] expectedResult = {14,0,0};
-		assertArrayEquals(expectedResult, instance.timeToDeliver(instance.dateOfDeliver()));
+		int [] realResult = instance.timeToDeliver(instance.dateOfDeliver());
+		
+		if(realResult[1] <= 0) realResult[1] = 0;
+		
+		assertArrayEquals(expectedResult, realResult);
 	}
 }

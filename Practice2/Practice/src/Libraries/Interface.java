@@ -8,10 +8,12 @@ import java.io.InputStream;
 
 public class Interface {
 
+	@SuppressWarnings("unchecked")
 	public static void main(String[] args) throws IOException{
 
 		Scanner consoleEntrance = new Scanner(System.in), consoleEntrance1;
 		MyException exception = new MyException();
+		ShoppingBascket basket1, basket2;
 
 		//===========================================================================
 		//                        INTERNATIONALISATION
@@ -22,6 +24,7 @@ public class Interface {
 		System.out.println("- English          United Kingdom       en, UK");
 		System.out.println("- Spanish          Spain                es, ES");
 		System.out.println("- Japanese         Japan                ja, JP");
+		System.out.println("- German           Germany              de, DE");
 		String language = "", country = "";
 		boolean error = true;
 		while(error != false) {
@@ -30,7 +33,7 @@ public class Interface {
 			System.out.print("Introduce the country code: ");
 			country = consoleEntrance.nextLine();
 			if((!language.equals("en") || !country.equals("UK")) && (!language.equals("es") || !country.equals("ES")) &&
-					(!language.equals("ja") || !country.equals("JP"))) {
+			   (!language.equals("ja") || !country.equals("JP")) && (!language.equals("de") || !country.equals("DE"))) {
 				System.out.println(exception.getException("ErrorLanguageCountry") + language + " " + country);
 			}else {
 				error = false;
@@ -48,6 +51,8 @@ public class Interface {
 				labels = new FileInputStream("Labels_es_ES.properties");
 			}else if(language.equals("ja") && country.equals("JP")) {
 				labels = new FileInputStream("Labels_ja_JP.properties");
+			}else if(language.equals("de") && country.equals("DE")) {
+				labels = new FileInputStream("Labels_de_DE.properties");
 			}
 			prop.load(labels);
 		}catch(IOException e) {
@@ -68,6 +73,8 @@ public class Interface {
 			idFile = "BooksAndVideogames_es_ES.txt";
 		}else if(language.equals("ja") && country.equals("JP")) {
 			idFile = "BooksAndVideogames_ja_JP.txt";
+		}else if(language.equals("de") && country.equals("DE")) {
+			idFile = "BooksAndVideogames_de_DE.txt";
 		}
 
 		File entryFile = new File(idFile);
@@ -228,7 +235,9 @@ public class Interface {
 
 			if(logOut != true) {
 				User user = library.searchUser(actualUserEmail, actualUserPassword);
-
+				basket1 = ShoppingBascket.getInstance();
+				basket2 = ShoppingBascket.getInstance();
+				
 				String attemp = "";
 				while(error != false) {
 					consoleEntrance = new Scanner(System.in);
@@ -294,12 +303,12 @@ public class Interface {
 
 					if(option.equals("1")) {
 						String option2 = "";
-						while(!option2.equals("11")) {
+						while(!option2.equals("12")) {
 							while(error != false) {
 								System.out.print(prop.getProperty("User's_menu"));
 								option2 = consoleEntrance.nextLine();
 
-								if((!option2.equals("1")) && (!option2.equals("2")) && (!option2.equals("3")) && (!option2.equals("4")) && (!option2.equals("5")) && (!option2.equals("6")) && (!option2.equals("7")) && (!option2.equals("8")) && (!option2.equals("9")) && (!option2.equals("10")) && (!option2.equals("11"))) {
+								if((!option2.equals("1")) && (!option2.equals("2")) && (!option2.equals("3")) && (!option2.equals("4")) && (!option2.equals("5")) && (!option2.equals("6")) && (!option2.equals("7")) && (!option2.equals("8")) && (!option2.equals("9")) && (!option2.equals("10")) && (!option2.equals("11")) && (!option2.equals("12"))) {
 									System.out.println(exception.getException("ErrorIntegerOutOfBounds"));
 								}else {
 									error = false;
@@ -1078,7 +1087,7 @@ public class Interface {
 														break;
 													}
 												}
-												user.removeRewards(stringRewards.elementAt(i));
+												user.removeReward(stringRewards.elementAt(i));
 											}
 										}else if(answerInt == 2) {}
 									}else {
@@ -1089,24 +1098,82 @@ public class Interface {
 								}
 								break;
 							case 10:
-								option2 = "11";
-								option = "";
+								if(basket1.getShoppingBasket().size() > 0) {
+									consoleEntrance = new Scanner(System.in);
+									
+									System.out.println(prop.getProperty("Shopping_basket"));
+									System.out.println(prop.getProperty("Shopping_basket1"));
+									basket1.printShoppingBasket(prop);
+									System.out.println();
+									
+									String process = "";
+									while(error != false) {
+										System.out.print(prop.getProperty("Buy_process"));
+										process = consoleEntrance.nextLine();
+										
+										if((!process.equals("1")) && (!process.equals("2"))) {
+											System.out.println(exception.getException("ErrorIntegerOutOfBounds"));
+										}else {
+											error = false;
+										}
+									}
+									int processInt = Integer.parseInt(process);
+									error = true;
+									
+									if(processInt == 1) {
+										basket1.initializeProperties(prop);
+										basket1.initilizeLibrary(library);
+										basket1.run();
+										library = basket1.getLibrary();
+										
+										String finishProcess = "";
+										while(error != false) {
+											System.out.print(prop.getProperty("Finish_process"));
+											finishProcess = consoleEntrance.nextLine();
+											
+											if((!finishProcess.equals("1")) && (!finishProcess.equals("2"))) {
+												System.out.println(exception.getException("ErrorIntegerOutOfBounds"));
+											}else {
+												error = false;
+											}
+										}
+										int finishProcessInt = Integer.parseInt(finishProcess);
+										error = true;
+										
+										if(finishProcessInt == 2) {
+											Vector<String> products = basket1.getShoppingBasket();
+											
+											for(String elem : products) {
+												library.returnLoanObject(library.getLoanObject(elem));
+											}
+											System.out.println(prop.getProperty("Elements_returned"));
+										}else {
+											System.out.println(prop.getProperty("Transaction_completed"));
+										}
+									}else {}
+								}else {
+									System.out.println(exception.getException("ErrorHaveNoProducts"));
+								}
 								break;
 							case 11:
-								option2 = "11";
+								option2 = "12";
+								option = "";
+								break;
+							case 12:
+								option2 = "12";
 								option = "4";
 								break;
 							}
 						}
 					}else if(option.equals("2")) {
 						String option3 = "";
-						while(!option3.equals("6")) {
+						while(!option3.equals("7")) {
 
 							while(error != false) {
 								System.out.print(prop.getProperty("Library_menu"));
 								option3 = consoleEntrance.nextLine();
 
-								if((!option3.equals("1")) && (!option3.equals("2")) && (!option3.equals("3")) && (!option3.equals("4")) && (!option3.equals("5")) && (!option3.equals("6"))) {
+								if((!option3.equals("1")) && (!option3.equals("2")) && (!option3.equals("3")) && (!option3.equals("4")) && (!option3.equals("5")) && (!option3.equals("6")) && (!option3.equals("7"))) {
 									System.out.println(exception.getException("ErrorIntegerOutOfBounds"));
 								}else {
 									error = false;
@@ -1311,26 +1378,120 @@ public class Interface {
 								}
 								break;
 							case 4:
-								library.printLoanObjects(prop, true, false);
+								String option4 = "";
+								consoleEntrance = new Scanner(System.in);
+								while(!option4.equals("2")) {
+									System.out.print(prop.getProperty("Choose_book_buy"));
+									consoleEntrance = new Scanner(System.in);
+									String book = consoleEntrance.nextLine();
+
+									if(library.searchLoanObjectsByName(book)) {
+										Book elem = library.getBook(book);
+
+										String cover = "";
+										while(error != false) {
+											System.out.print(prop.getProperty("Choose_softHardCover"));
+											cover = consoleEntrance.nextLine();
+
+											if((!cover.equals("1")) && (!cover.equals("2"))) {
+												System.out.println(exception.getException("ErrorIntegerOutOfBounds"));
+											}else {
+												error = false;
+											}
+										}
+										int coverInt = Integer.parseInt(cover);
+										error = true;
+
+										if(coverInt == 1) {
+											LoanObjects bookSoftCover = new SoftBookCover(elem, "soft cover");
+											System.out.print(prop.getProperty("Book_cost") + elem.getName() + " " + prop.getProperty("Book_cost2"));
+											bookSoftCover.printAllData(prop);
+											System.out.println(" " + prop.getProperty("Book_cost1") + 30 + "€");
+
+											String choose = "";
+											while(error != false) {
+												System.out.print(prop.getProperty("Ask_to_addProduct"));
+												choose = consoleEntrance.nextLine();
+												
+												if((!choose.equals("1")) && (!choose.equals("2"))) {
+													System.out.println(exception.getException("ErrorIntegerOutOfBounds"));
+												}else {
+													error = false;
+												}
+											}
+											int chooseInt = Integer.parseInt(choose);
+											error = true;
+											
+											if(chooseInt == 1) {
+												basket1.addProduct(elem.getName());
+												basket1.addPrice(30);
+											}else {}
+										}else {
+											LoanObjects bookHardCover = new HardBookCover(elem, "hard cover");
+											System.out.print(prop.getProperty("Book_cost") + elem.getName() + " " + prop.getProperty("Book_cost2"));
+											bookHardCover.printAllData(prop);
+											System.out.println(" " + prop.getProperty("Book_cost1") + 40 + "€");
+											
+											String choose = "";
+											while(error != false) {
+												System.out.print(prop.getProperty("Ask_to_addProduct"));
+												choose = consoleEntrance.nextLine();
+												
+												if((!choose.equals("1")) && (!choose.equals("2"))) {
+													System.out.println(exception.getException("ErrorIntegerOutOfBounds"));
+												}else {
+													error = false;
+												}
+											}
+											int chooseInt = Integer.parseInt(choose);
+											error = true;
+											
+											if(chooseInt == 1) {
+												basket1.addProduct(elem.getName());
+												basket1.addPrice(40);
+											}else {}
+										}
+
+										option4 = "2";
+									}else {
+										System.out.println(prop.getProperty("Book_not_stock") + book + " " + prop.getProperty("Book_not_stock1"));
+
+										while(error != false) {
+											System.out.print(prop.getProperty("Ask_to_choose_book"));
+											option4 = consoleEntrance.nextLine();
+
+											if((!option4.equals("1")) && (!option4.equals("2"))) {
+												System.out.println(exception.getException("ErrorIntegerOutOfBounds"));
+											}else {
+												error = false;
+											}
+										}
+										error = true;
+									}
+								}
 								break;
 							case 5:
-								option3 = "6";
-								option = "";
+								library.printLoanObjects(prop, true, false);
 								break;
 							case 6:
-								option3 = "6";
+								option3 = "7";
+								option = "";
+								break;
+							case 7:
+								option3 = "7";
 								option = "4";
 								break;
 							}
 						}
 					}else if(option.equals("3")) {
 						String option4 = "";
-						while(!option4.equals("5")) {
+						while(!option4.equals("6")) {
+
 							while(error != false) {
 								System.out.print(prop.getProperty("Videogame_menu"));
 								option4 = consoleEntrance.nextLine();
 
-								if((!option4.equals("1")) && (!option4.equals("2")) && (!option4.equals("3")) && (!option4.equals("4")) && (!option4.equals("5"))) {
+								if((!option4.equals("1")) && (!option4.equals("2")) && (!option4.equals("3")) && (!option4.equals("4")) && (!option4.equals("5")) && (!option4.equals("6"))) {
 									System.out.println(exception.getException("ErrorIntegerOutOfBounds"));
 								}else {
 									error = false;
@@ -1401,19 +1562,113 @@ public class Interface {
 								}
 								break;
 							case 3:
-								library.printLoanObjects(prop, false, true);
+								String option5 = "";
+								consoleEntrance = new Scanner(System.in);
+								while(!option5.equals("2")) {
+									System.out.print(prop.getProperty("Choose_videogame_buy"));
+									consoleEntrance = new Scanner(System.in);
+									String videogame1 = consoleEntrance.nextLine();
+
+									if(library.searchLoanObjectsByName(videogame1)) {
+										VideoGames elem = library.getVideogame(videogame1);
+
+										String type = "";
+										while(error != false) {
+											System.out.print(prop.getProperty("Choose_PCXboxVideogame"));
+											type = consoleEntrance.nextLine();
+
+											if((!type.equals("1")) && (!type.equals("2"))) {
+												System.out.println(exception.getException("ErrorIntegerOutOfBounds"));
+											}else {
+												error = false;
+											}
+										}
+										int typeInt = Integer.parseInt(type);
+										error = true;
+
+										if(typeInt == 1) {
+											LoanObjects videogamePC = new PC(elem, "PC");
+											System.out.print(prop.getProperty("Videogame_cost") + elem.getName() + " " + prop.getProperty("Videogame_cost1"));
+											videogamePC.printAllData(prop);
+											System.out.println(" " + prop.getProperty("Videogame_cost2") + 40 + "€");
+											
+											String choose = "";
+											while(error != false) {
+												System.out.print(prop.getProperty("Ask_to_addProduct"));
+												choose = consoleEntrance.nextLine();
+												
+												if((!choose.equals("1")) && (!choose.equals("2"))) {
+													System.out.println(exception.getException("ErrorIntegerOutOfBounds"));
+												}else {
+													error = false;
+												}
+											}
+											int chooseInt = Integer.parseInt(choose);
+											error = true;
+											
+											if(chooseInt == 1) {
+												basket2.addProduct(elem.getName());
+												basket2.addPrice(40);
+											}else {}
+										}else {
+											LoanObjects videogameXbox = new Xbox(elem, "Xbox");
+											System.out.print(prop.getProperty("Videogame_cost") + elem.getName() + " " + prop.getProperty("Videogame_cost1"));
+											videogameXbox.printAllData(prop);
+											System.out.println(" " + prop.getProperty("Videogame_cost2") + 60 + "€");
+											
+											String choose = "";
+											while(error != false) {
+												System.out.print(prop.getProperty("Ask_to_addProduct"));
+												choose = consoleEntrance.nextLine();
+												
+												if((!choose.equals("1")) && (!choose.equals("2"))) {
+													System.out.println(exception.getException("ErrorIntegerOutOfBounds"));
+												}else {
+													error = false;
+												}
+											}
+											int chooseInt = Integer.parseInt(choose);
+											error = true;
+											
+											if(chooseInt == 1) {
+												basket2.addProduct(elem.getName());
+												basket2.addPrice(60);
+											}else {}
+										}
+
+										option5 = "2";
+									}else {
+										System.out.println(prop.getProperty("Videogame_not_stock") + videogame1 + " " + prop.getProperty("Videogame_not_stock1"));
+
+										while(error != false) {
+											System.out.print(prop.getProperty("Ask_to_choose_videogame"));
+											option4 = consoleEntrance.nextLine();
+
+											if((!option4.equals("1")) && (!option4.equals("2"))) {
+												System.out.println(exception.getException("ErrorIntegerOutOfBounds"));
+											}else {
+												error = false;
+											}
+										}
+										error = true;
+									}
+								}
 								break;
 							case 4:
-								option4 = "5";
-								option = "";
+								library.printLoanObjects(prop, false, true);
 								break;
 							case 5:
-								option4 = "5";
+								option4 = "6";
+								option = "";
+								break;
+							case 6:
+								option4 = "6";
 								option = "4";
 							}
 						}			
 					}
 				}
+				basket1.instanceToNull();
 			}
 			loggedIn = false;
 		}

@@ -7,7 +7,13 @@ public class VideoGames extends LoanObjects{
 	private Vector<String> composers, developers, platforms;
 	
 	public VideoGames(String name, int publicationDay, String publicationMonth, int publicationYear, String genre, int loanTime, int stock, String gameModes, Vector<String> composers, Vector<String> developers, String lastVersion, Vector<String> platforms) {
-		super(name, publicationDay, publicationMonth, publicationYear, genre, loanTime, stock);
+		super.setName(name);
+		super.setPublicationDay(publicationDay);
+		super.setPublicationMonth(publicationMonth);
+		super.setPublicationYear(publicationYear);
+		super.setGenre(genre);
+		super.setName(name);
+		super.setStock(stock);
 		this.gameModes = gameModes;
 		this.composers = composers;
 		this.developers = developers;

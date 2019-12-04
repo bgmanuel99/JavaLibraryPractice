@@ -9,7 +9,13 @@ public class Book extends LoanObjects{
 
 	public Book(String name, int publicationDay, String publicationMonth, int publicationYear, String genre,
 			    int loanTime, int stock, String author, int numberOfPages, String ISBN) {
-		super(name, publicationDay, publicationMonth, publicationYear, genre, loanTime, stock);
+		super.setName(name);
+		super.setPublicationDay(publicationDay);
+		super.setPublicationMonth(publicationMonth);
+		super.setPublicationYear(publicationYear);
+		super.setGenre(genre);
+		super.setLoanTime(loanTime);
+		super.setStock(stock);
 		this.author = author;
 		this.numberOfPages = numberOfPages;
 		this.ISBN = ISBN;

@@ -205,10 +205,17 @@ public class Library {
 		}
 		return null;
 	}
+	
+	public LoanObjects getLoanObject(String name) {
+		for(LoanObjects elem : loanObjects) {
+			if(elem.getName().equals(name)) return elem;
+		}
+		return null;
+	}
 
 	public void makeALoan(String objectName) {
 		for(LoanObjects elem : loanObjects) {
-			if(elem.getName().equalsIgnoreCase(objectName)) {
+			if(elem.getName().equals(objectName)) {
 				elem.loan();
 			}
 		}
@@ -227,6 +234,12 @@ public class Library {
 			if(elem.equals(videogame)) {
 				elem.returnLoan();
 			}
+		}
+	}
+	
+	public void returnLoanObject(LoanObjects loanObject) {
+		for(LoanObjects elem : loanObjects) {
+			if(elem.equals(loanObject)) elem.returnLoan();
 		}
 	}
 

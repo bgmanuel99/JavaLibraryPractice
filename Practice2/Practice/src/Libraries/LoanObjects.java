@@ -7,15 +7,7 @@ public abstract class LoanObjects {
 	private String name, genre, publicationMonth;
 	private int publicationDay, publicationYear, loanTime, stock;
 	
-	public LoanObjects(String name, int publicationDay, String publicationMonth, int publicationYear, String genre, int loanTime, int stock) {
-		this.name = name;
-		this.publicationDay = publicationDay;
-		this.publicationMonth = publicationMonth;
-		this.publicationYear = publicationYear;
-		this.genre = genre;
-		this.loanTime = loanTime;
-		this.stock = stock;
-	}
+	public LoanObjects() {}
 	
 	abstract public void printAllData(Properties prop);
 	
