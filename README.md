@@ -21,7 +21,7 @@ This superclass also have an abstract method which is characteristics, with this
 
 - PC, Xbox, SoftBookCover, HardBookCover: this are the daughter classes of the superclass LoanObjectsPattern which inherit all its attributes and methods. This are the four options a user can choose to reinstantiate the book or videogame object choosed with anteriority, so it gives to the new object new characteristics.
 
-- ShoppingBascket: I use this class for patterns and also for concurrence. 
+- ShoppingBascket: I use this class for patterns and also for concurrence. The patterns used in this class are the pattern singleton and the iterator pattern. For the iterator pattern, i use the two vectors on this class, and i iterate them to show on console all the objects the user is going to buy and also their prices. Then i use the singleton pattern to create two baskets in which the user will introduce the books and videogames he wants to buy; Instead of creating two objects of the type shoppingBascket, i create an instance of the this class in the same class, an 
 
 - Sanctions: This class is not a class with heritage, i used this class for a vector of sanctions inside the users class, so when any object have excided the time of loan an object of the type Sanctions is initialize and introduced insisde it. Inside the library the user can see which are his sanctions, the time until the sanctions is withdrawn and the total amount of sanctions in time.
 
